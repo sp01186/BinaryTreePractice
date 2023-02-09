@@ -20,6 +20,7 @@ public class BinaryTree implements IBinaryTree {
 
     @Override
     public void addElement(int element) {
+        // Ask them about if they want a repeated element added.
         Node currentNode = root;
         while (currentNode.getValue() != element) {
             if (element > currentNode.getValue()) {
@@ -44,12 +45,31 @@ public class BinaryTree implements IBinaryTree {
 
     @Override
     public void addElements(int[] elements) {
-
+        for (int element: elements) {
+            this.addElement(element);
+        }
     }
 
     @Override
     public boolean findElement(int value) {
-        return false;
+        Node currentNode = root;
+        while (currentNode.getValue() != value) {
+            if (value > currentNode.getValue()) {
+                if (!currentNode.isRightChildEmpty()) {
+                    currentNode = currentNode.getRightChild();
+                } else {
+                    return false;
+                }
+
+            } else {
+                if (!currentNode.isLeftChildEmpty()) {
+                    currentNode = currentNode.getLeftChild();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
