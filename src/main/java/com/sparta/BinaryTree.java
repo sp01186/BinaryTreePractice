@@ -53,23 +53,26 @@ public class BinaryTree implements IBinaryTree {
     @Override
     public boolean findElement(int value) {
         Node currentNode = root;
+        boolean exists = true;
         while (currentNode.getValue() != value) {
             if (value > currentNode.getValue()) {
                 if (!currentNode.isRightChildEmpty()) {
                     currentNode = currentNode.getRightChild();
                 } else {
-                    return false;
+                    exists = false;
+                    break;
                 }
 
             } else {
                 if (!currentNode.isLeftChildEmpty()) {
                     currentNode = currentNode.getLeftChild();
                 } else {
-                    return false;
+                    exists = false;
+                    break;
                 }
             }
         }
-        return true;
+        return exists;
     }
 
     @Override
