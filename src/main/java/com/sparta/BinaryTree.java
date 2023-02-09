@@ -3,44 +3,62 @@ package com.sparta;
 public class BinaryTree implements IBinaryTree {
 
     Node root;
-
-    public BinaryTree(int value) {
-        root = new Node(value);
-    }
+    Node currentNode;
 
     @Override
     public int getRootElement() {
+        currentNode = root;
         return this.root.getValue();
+
     }
 
     @Override
     public int getNumberOfElements() {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+        int total = 1;
+        Node tempNode = currentNode;
+        if (!currentNode.isLeftChildEmpty()) {
+            currentNode = currentNode.getLeftChild();
+            total += getNumberOfElements();
+        }
+        currentNode = tempNode;
+        if (!currentNode.isRightChildEmpty()) {
+            currentNode = currentNode.getRightChild();
+            total += getNumberOfElements();
+        }
+        return total;
     }
 
     @Override
     public void addElement(int element) {
-        // Ask them about if they want a repeated element added.
-        Node currentNode = root;
-        while (currentNode.getValue() != element) {
-            if (element > currentNode.getValue()) {
-                if (currentNode.isRightChildEmpty()) {
-                    currentNode.setRightChild(new Node(element));
-                } else {
-                    currentNode = currentNode.getRightChild();
-                }
+//if root node does not exist then create it, if it does exist then insert node
+        if(root == null){
+            root=new Node(element);
+            currentNode=root;
+        }
+
+        Node tempNode = root;
+        if (element<currentNode.getValue()){
+            if(currentNode.isLeftChildEmpty()){
+                currentNode.setLeftChild(new Node(element));
+                currentNode = root;
             } else {
-                if (currentNode.isLeftChildEmpty()) {
-                    currentNode.setLeftChild(new Node(element));
-                } else {
-                    currentNode = currentNode.getLeftChild();
-                }
+                currentNode=currentNode.getLeftChild();
+                addElement(element);
             }
         }
-        System.out.println(root.getValue());
-        System.out.println(root.getRightChild().getValue());
-        if (!root.isLeftChildEmpty())
-            System.out.println(root.getLeftChild().getValue());
+
+        if(element>currentNode.getValue()){
+            if(currentNode.isRightChildEmpty()){
+                currentNode.setRightChild(new Node(element));
+                currentNode = root;
+            } else {
+                currentNode=currentNode.getRightChild();
+                addElement(element);
+            }
+        }
     }
 
     @Override
@@ -52,31 +70,34 @@ public class BinaryTree implements IBinaryTree {
 
     @Override
     public boolean findElement(int value) {
-        Node currentNode = root;
-        boolean exists = true;
-        while (currentNode.getValue() != value) {
-            if (value > currentNode.getValue()) {
-                if (!currentNode.isRightChildEmpty()) {
-                    currentNode = currentNode.getRightChild();
-                } else {
-                    exists = false;
-                    break;
-                }
 
+        if (value == currentNode.getValue()) {
+            return true;
+        }
+
+        if (value<currentNode.getValue()){
+            if(currentNode.isLeftChildEmpty()){
+                return false;
             } else {
-                if (!currentNode.isLeftChildEmpty()) {
-                    currentNode = currentNode.getLeftChild();
-                } else {
-                    exists = false;
-                    break;
-                }
+                currentNode=currentNode.getLeftChild();
+                return findElement(value);
             }
         }
-        return exists;
+
+        if(value>currentNode.getValue()){
+            if(currentNode.isRightChildEmpty()){
+                return false;
+            } else {
+                currentNode=currentNode.getRightChild();
+                return findElement(value);
+            }
+        }
+        return false;
     }
 
     @Override
     public int getLeftChild(int element) {
+
         return 0;
     }
 
