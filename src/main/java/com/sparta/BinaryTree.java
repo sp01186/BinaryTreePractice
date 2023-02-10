@@ -108,38 +108,63 @@ public class BinaryTree implements IBinaryTree {
     }
 
     @Override
-    public int getLeftChild(int element){
-        boolean elementExists = element == currentNode.getValue();
+    public int getLeftChild(int element){ // 4-13-17
+        int value = 0;
+        Node tempNode = currentNode;
 
         if (element<currentNode.getValue()){
             if(currentNode.isLeftChildEmpty()){
-                elementExists = false;
+                return 0;
             } else {
                 currentNode=currentNode.getLeftChild();
-                elementExists = getLeftChild(element) > 0;
+                value += getLeftChild(element);
             }
         }
 
-        if(element>currentNode.getValue() && !elementExists){
-            if(currentNode.isRightChildEmpty()){
-                elementExists = false;
+        currentNode = tempNode;
+        if(element>currentNode.getValue() && value == 0) {
+            if (currentNode.isRightChildEmpty()) {
+                return 0;
             } else {
-                currentNode=currentNode.getRightChild();
-                elementExists = getRightChild(element) > 0;
+                currentNode = currentNode.getRightChild();
+                value += getLeftChild(element);
             }
         }
-
-        if (elementExists && !currentNode.isLeftChildEmpty()) {
-            return currentNode.getLeftChild().getValue();
-        } else {
-            return 0;
-        }
-        //return left child of the number 7
+        currentNode = tempNode;
+        if (currentNode.getValue() == element && !currentNode.isLeftChildEmpty())
+            return value + currentNode.getLeftChild().getValue();
+        else
+            return value;
     }
 
     @Override
     public int getRightChild(int element) {
-        return 0;
+        int value = 0;
+        Node tempNode = currentNode;
+
+        if (element<currentNode.getValue()){
+            if(currentNode.isLeftChildEmpty()){
+                return 0;
+            } else {
+                currentNode=currentNode.getLeftChild();
+                value += getRightChild(element);
+            }
+        }
+
+        currentNode = tempNode;
+        if(element>currentNode.getValue() && value == 0) {
+            if (currentNode.isRightChildEmpty()) {
+                return 0;
+            } else {
+                currentNode = currentNode.getRightChild();
+                value += getRightChild(element);
+            }
+        }
+        currentNode = tempNode;
+        if (currentNode.getValue() == element && !currentNode.isRightChildEmpty())
+            return value + currentNode.getRightChild().getValue();
+        else
+            return value;
     }
 
     @Override
