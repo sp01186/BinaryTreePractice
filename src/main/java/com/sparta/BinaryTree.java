@@ -13,6 +13,7 @@ public class BinaryTree implements IBinaryTree {
 
     @Override
     public int getRootElement() {
+        currentNode = root;
         return this.root.getValue();
 
     }
@@ -46,27 +47,27 @@ public class BinaryTree implements IBinaryTree {
             root=new Node(element);
             currentNode=root;
         }
+        boolean elementSet = false;
         if (element<currentNode.getValue()){
             if(currentNode.isLeftChildEmpty()){
                 currentNode.setLeftChild(new Node(element));
-                currentNode = root;
-                return;
             } else {
                 currentNode=currentNode.getLeftChild();
                 addElement(element);
+                elementSet = true;
             }
         }
 
-        if(element>currentNode.getValue()){
+        if(element>currentNode.getValue() && !elementSet){
             if(currentNode.isRightChildEmpty()){
                 currentNode.setRightChild(new Node(element));
-                currentNode = root;
-                return;
             } else {
                 currentNode=currentNode.getRightChild();
                 addElement(element);
             }
         }
+
+        currentNode = root;
     }
 
     @Override
@@ -81,16 +82,19 @@ public class BinaryTree implements IBinaryTree {
 
         boolean element = value == currentNode.getValue();
 
+        boolean elementFound = false;
+
         if (value<currentNode.getValue()){
             if(currentNode.isLeftChildEmpty()){
                 element = false;
             } else {
                 currentNode=currentNode.getLeftChild();
                 element = findElement(value);
+                elementFound = true;
             }
         }
 
-        if(value>currentNode.getValue()){
+        if(value>currentNode.getValue() && !elementFound){
             if(currentNode.isRightChildEmpty()){
                 element = false;
             } else {
@@ -112,7 +116,7 @@ public class BinaryTree implements IBinaryTree {
                 elementExists = false;
             } else {
                 currentNode=currentNode.getLeftChild();
-                elementExists = findElement(element);
+                elementExists = getLeftChild(element) > 0;
             }
         }
 
@@ -121,7 +125,7 @@ public class BinaryTree implements IBinaryTree {
                 elementExists = false;
             } else {
                 currentNode=currentNode.getRightChild();
-                elementExists = findElement(element);
+                elementExists = getRightChild(element) > 0;
             }
         }
 
