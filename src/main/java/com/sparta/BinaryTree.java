@@ -104,8 +104,33 @@ public class BinaryTree implements IBinaryTree {
     }
 
     @Override
-    public int getLeftChild(int element) {
-        return 0;
+    public int getLeftChild(int element){
+        boolean elementExists = element == currentNode.getValue();
+
+        if (element<currentNode.getValue()){
+            if(currentNode.isLeftChildEmpty()){
+                elementExists = false;
+            } else {
+                currentNode=currentNode.getLeftChild();
+                elementExists = findElement(element);
+            }
+        }
+
+        if(element>currentNode.getValue() && !elementExists){
+            if(currentNode.isRightChildEmpty()){
+                elementExists = false;
+            } else {
+                currentNode=currentNode.getRightChild();
+                elementExists = findElement(element);
+            }
+        }
+
+        if (elementExists && !currentNode.isLeftChildEmpty()) {
+            return currentNode.getLeftChild().getValue();
+        } else {
+            return 0;
+        }
+        //return left child of the number 7
     }
 
     @Override
