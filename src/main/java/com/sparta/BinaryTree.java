@@ -1,5 +1,7 @@
 package com.sparta;
 
+import com.sparta.extensions.ChildNotFoundException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -108,7 +110,7 @@ public class BinaryTree implements IBinaryTree {
     }
 
     @Override
-    public int getLeftChild(int element){ // 4-13-17
+    public int getLeftChild(int element) throws ChildNotFoundException{ // 4-13-17
         int value = 0;
         Node tempNode = currentNode;
 
@@ -131,14 +133,18 @@ public class BinaryTree implements IBinaryTree {
             }
         }
         currentNode = tempNode;
-        if (currentNode.getValue() == element && !currentNode.isLeftChildEmpty())
-            return value + currentNode.getLeftChild().getValue();
-        else
+        if (currentNode.getValue() == element) {
+            if (!currentNode.isLeftChildEmpty()) {
+                return value + currentNode.getLeftChild().getValue();
+            } else {
+                throw new ChildNotFoundException();
+            }
+        } else
             return value;
     }
 
     @Override
-    public int getRightChild(int element) {
+    public int getRightChild(int element) throws ChildNotFoundException {
         int value = 0;
         Node tempNode = currentNode;
 
@@ -161,9 +167,13 @@ public class BinaryTree implements IBinaryTree {
             }
         }
         currentNode = tempNode;
-        if (currentNode.getValue() == element && !currentNode.isRightChildEmpty())
-            return value + currentNode.getRightChild().getValue();
-        else
+        if (currentNode.getValue() == element) {
+            if (!currentNode.isRightChildEmpty()) {
+                return value + currentNode.getRightChild().getValue();
+            } else {
+                throw new ChildNotFoundException();
+            }
+        } else
             return value;
     }
 

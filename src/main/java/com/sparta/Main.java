@@ -31,17 +31,17 @@ public class Main {
         System.out.println(binTree.findElement(12));
         System.out.println(Arrays.toString(binTree.getSortedTreeAsc()));
         System.out.println(Arrays.toString(binTree.getSortedTreeDesc()));
-        System.out.println(binTree.getLeftChild(13));
-        System.out.println(binTree.getLeftChild(17));
-        System.out.println(binTree.getLeftChild(234));
-        System.out.println(binTree.getLeftChild(22));
-        System.out.println(binTree.getLeftChild(13));
-        System.out.println(binTree.getLeftChild(2));
-        System.out.println(binTree.getLeftChild(121));
+//        System.out.println(binTree.getLeftChild(13));
+//        System.out.println(binTree.getLeftChild(17));
+//        System.out.println(binTree.getLeftChild(234));
+//        System.out.println(binTree.getLeftChild(22));
+//        System.out.println(binTree.getLeftChild(13));
+//        System.out.println(binTree.getLeftChild(2));
+//        System.out.println(binTree.getLeftChild(121));
         System.out.println("Just a big gap");
-        System.out.println(binTree.getRightChild(17));
-        System.out.println(binTree.getRightChild(64));
-        System.out.println(binTree.getRightChild(4));
+//        System.out.println(binTree.getRightChild(17));
+//        System.out.println(binTree.getRightChild(64));
+//        System.out.println(binTree.getRightChild(4));
 
 
 

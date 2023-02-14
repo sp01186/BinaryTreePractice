@@ -1,5 +1,7 @@
 package com.sparta;
 
+import com.sparta.extensions.ChildNotFoundException;
+
 public interface IBinaryTree {
     int getRootElement();
 
@@ -11,9 +13,9 @@ public interface IBinaryTree {
 
     boolean findElement(int value);
 
-    int getLeftChild(int element);
+    int getLeftChild(int element) throws ChildNotFoundException;
 
-    int getRightChild(int element);
+    int getRightChild(int element) throws ChildNotFoundException;
 
     int[] getSortedTreeAsc();
 
