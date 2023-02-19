@@ -4,6 +4,6 @@ public class ChildNotFoundException extends Exception{
 
     @Override
     public String getMessage() {
-        return "child of this class is not found";
+        return "child of this node is not found";
     }
 }

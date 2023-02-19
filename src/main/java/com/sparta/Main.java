@@ -1,9 +1,14 @@
 package com.sparta;
 
+import com.sparta.logger.LoggerWrapper;
+
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 public class Main {
     public static void main(String[] args) {
+
+        Logger logger = LoggerWrapper.setUpPersonalLogger(Logger.getLogger(Main.class.getName()));
         BinaryTree binTree = new BinaryTree();
         binTree.addElement(17);
         binTree.addElement(234);
